@@ -1,5 +1,6 @@
 # AlibabaCloud LogService Exporter
 
+Testtestestest
 This exporter supports sending OpenTelemetry data(Traces, Logs, Metrics) to [LogService](https://www.alibabacloud.com/product/log-service).
 
 # Configuration options:
