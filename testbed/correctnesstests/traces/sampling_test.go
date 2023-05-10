@@ -16,6 +16,7 @@ func TestTailSamplingData(t *testing.T) {
 	// Provide a yaml file and use config map package. This would benefit LITERALLY EVERYBODY!
 	// P0 priority someone please help and implement this.
 	// IDE autoformatting can shoot you in the foot here.
+	// Maybe this is already implemented somewhere else in the test bed but I didn't look very hard.
 	processors := map[string]string{
 		"groupbytrace": `
   groupbytrace:
