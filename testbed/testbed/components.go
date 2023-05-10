@@ -33,6 +33,8 @@ import (
 	"github.com/open-telemetry/opentelemetry-collector-contrib/exporter/jaegerexporter"
 	"github.com/open-telemetry/opentelemetry-collector-contrib/exporter/opencensusexporter"
 	"github.com/open-telemetry/opentelemetry-collector-contrib/exporter/zipkinexporter"
+	"github.com/open-telemetry/opentelemetry-collector-contrib/processor/groupbytraceprocessor"
+	"github.com/open-telemetry/opentelemetry-collector-contrib/processor/tailsamplingprocessor"
 	"github.com/open-telemetry/opentelemetry-collector-contrib/receiver/jaegerreceiver"
 	"github.com/open-telemetry/opentelemetry-collector-contrib/receiver/opencensusreceiver"
 	"github.com/open-telemetry/opentelemetry-collector-contrib/receiver/zipkinreceiver"
@@ -72,6 +74,8 @@ func Components() (
 	processors, err := processor.MakeFactoryMap(
 		batchprocessor.NewFactory(),
 		memorylimiterprocessor.NewFactory(),
+		tailsamplingprocessor.NewFactory(),
+		groupbytraceprocessor.NewFactory(),
 	)
 	errs = multierr.Append(errs, err)
 

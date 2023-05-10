@@ -30,6 +30,8 @@ processors:
   - gomod: go.opentelemetry.io/collector/processor/memorylimiterprocessor v0.76.2-0.20230502195822-4df44379e094
   - gomod: github.com/open-telemetry/opentelemetry-collector-contrib/processor/attributesprocessor v0.76.3
   - gomod: github.com/open-telemetry/opentelemetry-collector-contrib/processor/resourceprocessor v0.76.3
+  - gomod: github.com/open-telemetry/opentelemetry-collector-contrib/processor/groupbytraceprocessor v0.76.3
+  - gomod: github.com/open-telemetry/opentelemetry-collector-contrib/processor/tailsamplingprocessor v0.76.3
 
 receivers:
   - gomod: go.opentelemetry.io/collector/receiver/otlpreceiver v0.76.2-0.20230502195822-4df44379e094
@@ -90,6 +92,9 @@ replaces:
   - github.com/open-telemetry/opentelemetry-collector-contrib/processor/resourceprocessor => ../../processor/resourceprocessor
   - github.com/open-telemetry/opentelemetry-collector-contrib/exporter/carbonexporter => ../../exporter/carbonexporter
   - github.com/open-telemetry/opentelemetry-collector-contrib/pkg/translator/prometheus => ../../pkg/translator/prometheus
+  - github.com/open-telemetry/opentelemetry-collector-contrib/processor/groupbytraceprocessor => ../../processor/groupbytraceprocessor
+  - github.com/open-telemetry/opentelemetry-collector-contrib/processor/tailsamplingprocessor => ../../processor/tailsamplingprocessor
+
   # see https://github.com/mattn/go-ieproxy/issues/45
   - github.com/mattn/go-ieproxy => github.com/mattn/go-ieproxy v0.0.1
   - github.com/open-telemetry/opentelemetry-collector-contrib/pkg/pdatatest => ../../pkg/pdatatest
