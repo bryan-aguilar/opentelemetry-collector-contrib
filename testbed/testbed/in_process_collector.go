@@ -24,6 +24,7 @@ import (
 	"github.com/shirou/gopsutil/v3/process"
 	"go.opentelemetry.io/collector/component"
 	"go.opentelemetry.io/collector/confmap"
+	"go.opentelemetry.io/collector/confmap/converter/expandconverter"
 	"go.opentelemetry.io/collector/confmap/provider/fileprovider"
 	"go.opentelemetry.io/collector/otelcol"
 )
@@ -72,8 +73,9 @@ func (ipp *inProcessCollector) Start(args StartParams) error {
 	configProvider, err := otelcol.NewConfigProvider(
 		otelcol.ConfigProviderSettings{
 			ResolverSettings: confmap.ResolverSettings{
-				URIs:      []string{ipp.configFile},
-				Providers: map[string]confmap.Provider{fmp.Scheme(): fmp},
+				URIs:       []string{ipp.configFile},
+				Providers:  map[string]confmap.Provider{fmp.Scheme(): fmp},
+				Converters: []confmap.Converter{expandconverter.New()},
 			},
 		})
 	if err != nil {

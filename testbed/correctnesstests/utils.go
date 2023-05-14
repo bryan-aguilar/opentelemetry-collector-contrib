@@ -82,6 +82,48 @@ service:
 	)
 }
 
+// CreateConfigYamlProcFP creates a yaml config for an otel collector given a testbed sender, testbed receiver, any
+// processors, and a pipeline type. The processor definitions are expected to be provided through a file path pointing
+// to a yaml file.
+func CreateConfigYamlProcFP(
+	sender testbed.DataSender,
+	receiver testbed.DataReceiver,
+	processorFilePath string,
+	// CSV of processors for config service definition.
+	// TODO: Figure out how to get rid of this.
+	processorCSV string,
+	pipelineType string,
+) string {
+
+	format := `
+receivers:%v
+exporters:%v
+processors:
+  ${file:%s}
+
+extensions:
+
+service:
+  extensions:
+  pipelines:
+    %s:
+      receivers: [%v]
+      processors: [%s]
+      exporters: [%v]
+`
+
+	return fmt.Sprintf(
+		format,
+		sender.GenConfigYAMLStr(),
+		receiver.GenConfigYAMLStr(),
+		processorFilePath,
+		pipelineType,
+		sender.ProtocolName(),
+		processorCSV,
+		receiver.ProtocolName(),
+	)
+}
+
 // PipelineDef holds the information necessary to run a single testbed configuration.
 type PipelineDef struct {
 	Receiver     string

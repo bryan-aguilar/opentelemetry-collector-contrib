@@ -1,0 +1,14 @@
+groupbytrace:
+
+tail_sampling:
+  decision_wait: 3s
+  policies:
+    [
+      {
+        name: attr_sample,
+        type: string_attribute,
+        string_attribute: {key: key, values: value}
+      }
+    ]
+batch:
+  send_batch_size: 1024
