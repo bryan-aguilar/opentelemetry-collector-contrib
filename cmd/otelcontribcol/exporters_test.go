@@ -85,8 +85,8 @@ func TestDefaultExporters(t *testing.T) {
 	endpoint := testutil.GetAvailableLocalAddress(t)
 
 	tests := []struct {
-		exporter      component.Type
 		getConfigFn   getExporterConfigFn
+		exporter      component.Type
 		skipLifecycle bool
 	}{
 		{
@@ -95,6 +95,9 @@ func TestDefaultExporters(t *testing.T) {
 				return expFactories["awscloudwatchlogs"].CreateDefaultConfig()
 			},
 			skipLifecycle: true,
+		},
+		{
+			exporter: "awss3",
 		},
 		{
 			exporter: "file",
