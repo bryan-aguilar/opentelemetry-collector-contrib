@@ -63,8 +63,9 @@ func (v *SamplingTestValidator) RecordResults(tc *TestCase) {
 		testName:                   testName,
 		result:                     result,
 		duration:                   time.Since(tc.startTime),
-		receivedSpanCount:          tc.MockBackend.DataItemsReceived(),
-		sentSpanCount:              v.dataProvider.ToBeSampledSpansGenerated(),
+		actualReceivedSpanCount:    tc.MockBackend.DataItemsReceived(),
+		expectedReceivedSpanCount:  v.dataProvider.ToBeSampledSpansGenerated(),
+		totalSentSpanCount:         tc.LoadGenerator.DataItemsSent(),
 		traceAssertionFailureCount: uint64(len(v.assertionFailures)),
 		traceAssertionFailures:     v.assertionFailures,
 	})

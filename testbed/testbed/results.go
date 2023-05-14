@@ -123,8 +123,9 @@ type CorrectnessTestResult struct {
 	testName                   string
 	result                     string
 	duration                   time.Duration
-	sentSpanCount              uint64
-	receivedSpanCount          uint64
+	totalSentSpanCount         uint64
+	expectedReceivedSpanCount  uint64
+	actualReceivedSpanCount    uint64
 	traceAssertionFailureCount uint64
 	traceAssertionFailures     []*TraceAssertionFailure
 }
@@ -160,8 +161,8 @@ func (r *CorrectnessResults) Init(resultsDir string) {
 	_, _ = io.WriteString(r.resultsFile,
 		"# Test Results\n"+
 			fmt.Sprintf("Started: %s\n\n", time.Now().Format(time.RFC1123Z))+
-			"Test                                    |Result|Duration|Sent Items|Received Items|Failure Count|Failures\n"+
-			"----------------------------------------|------|-------:|---------:|-------------:|------------:|--------\n")
+			"Test                                    |Result|Duration|Sent Items|Expected Received Items|Actual Received Items|Failure Count|Failures\n"+
+			"----------------------------------------|------|-------:|---------:|----------------------:|--------------------:|------------:|--------\n")
 }
 
 func (r *CorrectnessResults) Add(_ string, result interface{}) {
@@ -176,12 +177,13 @@ func (r *CorrectnessResults) Add(_ string, result interface{}) {
 			af.actualValue, af.sumCount)
 	}
 	_, _ = io.WriteString(r.resultsFile,
-		fmt.Sprintf("%-40s|%-6s|%7.0fs|%10d|%14d|%13d|%s\n",
+		fmt.Sprintf("%-40s|%-6s|%7.0fs|%10d|%23d|%21d|%13d|%s\n",
 			testResult.testName,
 			testResult.result,
 			testResult.duration.Seconds(),
-			testResult.sentSpanCount,
-			testResult.receivedSpanCount,
+			testResult.totalSentSpanCount,
+			testResult.expectedReceivedSpanCount,
+			testResult.actualReceivedSpanCount,
 			testResult.traceAssertionFailureCount,
 			failuresStr,
 		),

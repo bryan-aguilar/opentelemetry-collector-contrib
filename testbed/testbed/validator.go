@@ -116,8 +116,9 @@ func (v *CorrectnessTestValidator) RecordResults(tc *TestCase) {
 		testName:                   testName,
 		result:                     result,
 		duration:                   time.Since(tc.startTime),
-		receivedSpanCount:          tc.MockBackend.DataItemsReceived(),
-		sentSpanCount:              tc.LoadGenerator.DataItemsSent(),
+		actualReceivedSpanCount:    tc.MockBackend.DataItemsReceived(),
+		totalSentSpanCount:         tc.LoadGenerator.DataItemsSent(),
+		expectedReceivedSpanCount:  tc.LoadGenerator.DataItemsSent(),
 		traceAssertionFailureCount: uint64(len(v.assertionFailures)),
 		traceAssertionFailures:     v.assertionFailures,
 	})
