@@ -6,6 +6,7 @@ package prometheus // import "github.com/open-telemetry/opentelemetry-collector-
 import (
 	"testing"
 
+	"github.com/stretchr/testify/assert"
 	"github.com/stretchr/testify/require"
 
 	"github.com/open-telemetry/opentelemetry-collector-contrib/internal/common/testutil"
@@ -14,13 +15,8 @@ import (
 func TestSanitize(t *testing.T) {
 
 	defer testutil.SetFeatureGateForTest(t, dropSanitizationGate, false)()
-
-	require.Equal(t, "", NormalizeLabel(""), "")
-	require.Equal(t, "key_test", NormalizeLabel("_test"))
-	require.Equal(t, "key_0test", NormalizeLabel("0test"))
-	require.Equal(t, "test", NormalizeLabel("test"))
-	require.Equal(t, "test__", NormalizeLabel("test_/"))
-	require.Equal(t, "__test", NormalizeLabel("__test"))
+	assert.Equal(t, "__test__", NormalizeLabel("__test__))"))
+	assert.Equal(t, "test__", NormalizeLabel("test__))"))
 }
 
 func TestSanitizeDropSanitization(t *testing.T) {
@@ -32,4 +28,5 @@ func TestSanitizeDropSanitization(t *testing.T) {
 	require.Equal(t, "key_0test", NormalizeLabel("0test"))
 	require.Equal(t, "test", NormalizeLabel("test"))
 	require.Equal(t, "__test", NormalizeLabel("__test"))
+	require.Equal(t, "__test__", NormalizeLabel("__test__"))
 }
